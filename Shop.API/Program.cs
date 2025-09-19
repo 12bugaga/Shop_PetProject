@@ -2,12 +2,10 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Shop.API.Filtres;
 using Shop.Application.Behaviors;
 using Shop.Infrastructure;
 using Shop.Infrastructure.DbContexts;
@@ -22,15 +20,22 @@ var connestionString = configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ShopDbContext>((serviceProvider, options) =>
 {
-    var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-    // var loggingDbCommandInterceptor = serviceProvider.GetRequiredService<LoggingDbCommandInterceptor>();
-    // var loggingDbTransactionInterceptor = serviceProvider.GetRequiredService<LoggingDbTransactionInterceptor>();
+    options.UseNpgsql(connestionString, b => b.MigrationsAssembly("Shop.API"));
 
-    options.UseSqlServer(connestionString, b => b.MigrationsAssembly("Shop.API"));
-    // .UseLoggerFactory(loggerFactory)
-    // .EnableSensitiveDataLogging()
-    // .EnableDetailedErrors()
-    // .AddInterceptors(loggingDbCommandInterceptor, loggingDbTransactionInterceptor); 
+    var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+    if (loggerFactory != null)
+    {
+        options.UseLoggerFactory(loggerFactory);
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
+
+        // var loggingDbCommandInterceptor = serviceProvider.GetService<LoggingDbCommandInterceptor>();
+        // var loggingDbTransactionInterceptor = serviceProvider.GetService<LoggingDbTransactionInterceptor>();
+        // if (loggingDbCommandInterceptor != null && loggingDbTransactionInterceptor != null)
+        // {
+        //     options.AddInterceptors(loggingDbCommandInterceptor, loggingDbTransactionInterceptor);
+        // }
+    }
 });
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -82,21 +87,6 @@ builder.
         });
         c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
     });
-
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationFilter>("BasicAuthentication", null);
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true)
-                .AllowCredentials();
-        });
-});
 
 var app = builder.Build();
 
