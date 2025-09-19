@@ -5,7 +5,7 @@ using Shop.ClientService.Protos;
 
 namespace Shop.ClientService.Services;
 
-public class ClientServiceGrpc : ClientService.ClientServiceBase
+public class ClientServiceGrpc : ClientService.Protos.ClientService.ClientServiceBase
 {
     private readonly IMediator _mediator;
 
