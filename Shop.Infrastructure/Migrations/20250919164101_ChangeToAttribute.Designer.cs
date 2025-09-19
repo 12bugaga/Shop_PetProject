@@ -11,7 +11,7 @@ using Shop.Infrastructure.DbContexts;
 
 namespace Shop.Infrastructure.Migrations
 {
-    [DbContext(typeof(ShopDbContext))]
+    [DbContext(typeof(ShopAPIDbContext))]
     [Migration("20250919164101_ChangeToAttribute")]
     partial class ChangeToAttribute
     {

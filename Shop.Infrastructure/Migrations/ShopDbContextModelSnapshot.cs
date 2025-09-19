@@ -10,7 +10,7 @@ using Shop.Infrastructure.DbContexts;
 
 namespace Shop.Infrastructure.Migrations
 {
-    [DbContext(typeof(ShopDbContext))]
+    [DbContext(typeof(ShopAPIDbContext))]
     partial class ShopDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

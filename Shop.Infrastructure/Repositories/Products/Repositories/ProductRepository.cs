@@ -7,18 +7,18 @@ namespace Shop.Infrastructure.Repositories.Products.Repositories;
 
 public class ProductRepository : IProductQueryRepository, IProductCommandRepository
 {
-    private readonly ShopDbContext _dbContext;
+    private readonly ShopAPIDbContext _apiDbContext;
 
-    public ProductRepository(ShopDbContext dbContext)
+    public ProductRepository(ShopAPIDbContext apiDbContext)
     {
-        _dbContext = dbContext;
+        _apiDbContext = apiDbContext;
     }
     
     #region IProductCommandRepository
     
     public async Task AddAsync(Product product, CancellationToken cancellationToken = default)
     {
-        await _dbContext.Products.AddAsync(product, cancellationToken);
+        await _apiDbContext.Products.AddAsync(product, cancellationToken);
     }
     #endregion
 
@@ -26,7 +26,7 @@ public class ProductRepository : IProductQueryRepository, IProductCommandReposit
 
     public async Task<List<Product>> GetCategoryProductsAsync(string categoryName, CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Products.Where(a => a.CategoryName == categoryName).ToListAsync();
+        return await _apiDbContext.Products.Where(a => a.CategoryName == categoryName).ToListAsync();
     }
 
     #endregion

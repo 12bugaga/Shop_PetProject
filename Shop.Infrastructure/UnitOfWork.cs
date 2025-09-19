@@ -13,9 +13,9 @@ public interface IUnitOfWork
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ShopDbContext _context;
+    private readonly ShopAPIDbContext _context;
 
-    public UnitOfWork(ShopDbContext context)
+    public UnitOfWork(ShopAPIDbContext context)
     {
         _context = context;
     }

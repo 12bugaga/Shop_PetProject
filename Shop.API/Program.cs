@@ -18,7 +18,7 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 var connestionString = configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ShopDbContext>((serviceProvider, options) =>
+builder.Services.AddDbContext<ShopAPIDbContext>((serviceProvider, options) =>
 {
     options.UseNpgsql(connestionString, b => b.MigrationsAssembly("Shop.API"));
 
@@ -44,7 +44,7 @@ foreach (var currentAssembly in AppDomain.CurrentDomain.GetAssemblies())
     builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(currentAssembly));
 }
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
-builder.Services.AddScoped<ShopDbContext>(provider => provider.GetService<ShopDbContext>());
+builder.Services.AddScoped<ShopAPIDbContext>(provider => provider.GetService<ShopAPIDbContext>());
 builder.Services.AddScoped<IProductQueryRepository, ProductRepository>();
 builder.Services.AddScoped<IProductCommandRepository, ProductRepository>();
 builder.Services.AddControllers()

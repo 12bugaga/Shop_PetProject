@@ -11,7 +11,7 @@ using Shop.Infrastructure.DbContexts;
 
 namespace Shop.Infrastructure.Migrations
 {
-    [DbContext(typeof(ShopDbContext))]
+    [DbContext(typeof(ShopAPIDbContext))]
     [Migration("20250919163424_InitialCreate")]
     partial class InitialCreate
     {

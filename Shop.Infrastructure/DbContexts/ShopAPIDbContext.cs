@@ -3,9 +3,9 @@ using Shop.Domain.Entities;
 
 namespace Shop.Infrastructure.DbContexts;
 
-public class ShopDbContext : DbContext
+public class ShopAPIDbContext : DbContext
 {
-    public ShopDbContext(DbContextOptions<ShopDbContext> options)
+    public ShopAPIDbContext(DbContextOptions<ShopAPIDbContext> options)
         : base(options)
     {
     }

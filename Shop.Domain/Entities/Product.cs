@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Shop.Domain.Entities;
 
 [Table("Products", Schema = "product")]
-public class Product
+public class Product : BaseEntity
 {
-    public Guid Id { get; private set; }
-    
     [Required]
     [Column(TypeName = "character varying(200)")]
     public string Name { get; private set; }

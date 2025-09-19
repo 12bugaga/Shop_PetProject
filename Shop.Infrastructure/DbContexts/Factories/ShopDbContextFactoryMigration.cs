@@ -4,11 +4,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace Shop.Infrastructure.DbContexts.Factories;
 
-public class ShopDbContextFactoryMigration : IDesignTimeDbContextFactory<ShopDbContext>
+public class ShopDbContextFactoryMigration : IDesignTimeDbContextFactory<ShopAPIDbContext>
 {
-    public ShopDbContext CreateDbContext(string[] args)
+    public ShopAPIDbContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<ShopDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<ShopAPIDbContext>();
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
@@ -17,6 +17,6 @@ public class ShopDbContextFactoryMigration : IDesignTimeDbContextFactory<ShopDbC
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         optionsBuilder.UseNpgsql(connectionString, b => b.MigrationsAssembly("Shop.Infrastructure"));
 
-        return new ShopDbContext(optionsBuilder.Options);
+        return new ShopAPIDbContext(optionsBuilder.Options);
     }
 }
