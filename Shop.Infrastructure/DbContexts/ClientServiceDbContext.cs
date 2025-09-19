@@ -3,9 +3,9 @@ using Shop.Domain.Entities;
 
 namespace Shop.ClientService.Infrastructure;
 
-public class ClientGrpcDbContext : DbContext
+public class ClientServiceDbContext : DbContext
 {
-    public ClientGrpcDbContext(DbContextOptions<ClientGrpcDbContext> options) : base(options)
+    public ClientServiceDbContext(DbContextOptions<ClientServiceDbContext> options) : base(options)
     {
     }
     

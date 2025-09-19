@@ -47,6 +47,7 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBe
 builder.Services.AddScoped<ShopAPIDbContext>(provider => provider.GetService<ShopAPIDbContext>());
 builder.Services.AddScoped<IProductQueryRepository, ProductRepository>();
 builder.Services.AddScoped<IProductCommandRepository, ProductRepository>();
+
 builder.Services.AddControllers()
     .AddNewtonsoftJson(
         options =>

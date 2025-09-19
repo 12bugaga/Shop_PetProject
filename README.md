@@ -14,3 +14,14 @@ For start Db:
 Check container:
     docker exec -it shop_postgres psql -U shop_user -d shop_db
 
+For add migration:
+    dotnet ef migrations add InitialCreate \
+    --context ShopDbContext \
+    --project Shop.Infrastructure/Shop.Infrastructure.csproj \
+    --startup-project Shop.API/Shop.API.csproj
+
+For update-database:
+    dotnet ef database update \
+    --context Shop.Infrastructure.DbContexts.ShopDbContext \
+    --project Shop.Infrastructure/Shop.Infrastructure.csproj \
+    --startup-project Shop.API/Shop.API.csproj

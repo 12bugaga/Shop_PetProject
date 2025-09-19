@@ -6,9 +6,9 @@ namespace Shop.Infrastructure.Repositories.Client.Repositories;
 
 public class ClientRepository : IClientCommandRepository, IClientQueryRepository
 {
-    private readonly ClientGrpcDbContext _context;
+    private readonly ClientServiceDbContext _context;
 
-    public ClientRepository(ClientGrpcDbContext context)
+    public ClientRepository(ClientServiceDbContext context)
     {
         _context = context;
     }
